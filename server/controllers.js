@@ -2,7 +2,7 @@ const axios = require('axios');
 const { getWeatherData } = require('./apiFetcher.js');
 const URL = `https://api.openweathermap.org/data/2.5/onecall`
 
-module.exports.getDailyForecast = async (req, res) => {
+module.exports.getDailyForecast = (req, res) => {
   const params = {
     lat: 15.6287,
     lon: 120.436798,
