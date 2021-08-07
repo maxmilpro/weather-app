@@ -4,7 +4,7 @@
   "description": "![design](https://drive.google.com/uc?id=1N4OC2EgWnHqzcUO3xhRQ5MzO3iT-inCS)",
   "main": "server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha tests/test.js",
     "server-dev": "nodemon server/index.js",
     "react-dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
@@ -25,6 +25,8 @@
     "@babel/preset-env": "^7.14.9",
     "@babel/preset-react": "^7.14.5",
     "babel-loader": "^8.2.2",
+    "chai": "^4.3.4",
+    "mocha": "^9.0.3",
     "nodemon": "^2.0.12",
     "webpack": "^5.48.0",
     "webpack-cli": "^4.7.2",
@@ -35,6 +37,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.3.0"
   }
 }
