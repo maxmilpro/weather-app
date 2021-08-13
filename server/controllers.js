@@ -24,6 +24,7 @@ const generateFiveDayForecast = (data) => {
       dayOfWeek,
       date,
       temperature: day.temp.day,
+      main: day.weather[0].main,
       description: day.weather[0].description
     }
   });
