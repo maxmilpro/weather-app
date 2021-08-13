@@ -12,6 +12,11 @@ const Title = styled.div`
   font-size: 50px;
 `;
 
+const Location = styled.div`
+  text-align: center;
+  font-weight: 400;
+  font-size: 25px;
+  margin-bottom: 5px;
+`;
 
-
-export { GlobalStyle, Title };
+export { GlobalStyle, Title, Location };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import FiveDayForecast from './components/FiveDayForecast.jsx';
-import { GlobalStyle, Title } from './styles/StyledApp.jsx';
+import { GlobalStyle, Title, Location } from './styles/StyledApp.jsx';
 
 const App = () => {
   const [forecast, setForecast] = useState([]);
@@ -21,6 +21,7 @@ const App = () => {
     <div>
       <GlobalStyle/>
       <Title>5-Day Forecast</Title>
+      <Location>San Francisco, CA</Location>
       <FiveDayForecast forecast={forecast}/>
     </div>
   )
