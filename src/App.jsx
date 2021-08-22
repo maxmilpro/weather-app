@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import SearchBar from './components/SearchBar.jsx';
 import FiveDayForecast from './components/FiveDayForecast.jsx';
 import { GlobalStyle, Title, Location } from './styles/StyledApp.jsx';
 
 const App = () => {
   const [forecast, setForecast] = useState([]);
+  const [location, setLocation] = useState('San Francisco, CA');
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
     const fetchForecast = () => {
@@ -20,8 +23,9 @@ const App = () => {
   return (
     <div>
       <GlobalStyle/>
+      <SearchBar setSearchText={setSearchText}/>
       <Title>5-Day Forecast</Title>
-      <Location>San Francisco, CA</Location>
+      <Location>{location}</Location>
       <FiveDayForecast forecast={forecast}/>
     </div>
   )
