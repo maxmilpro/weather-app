@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
+import debounce from 'lodash.debounce';
 
 const SearchBar = ({ setSearchText }) => {
-  const changeHanlder = event => {
+  const changeHandler = (event) => {
     setSearchText(event.target.value);
-  }
+  };
+
+  const debouncedChangeHandler = useMemo(
+    () => debounce(changeHandler, 300)
+  , []);
+
+  useEffect(() => {
+    return () => {
+      debouncedChangeHandler.cancel();
+    }
+  }, []);
 
   return (
     <div>
-      <input type="text" onChange={changeHanlder} placeholder="Enter a location..."/>
+      <input type="text" onChange={debouncedChangeHandler} placeholder="Enter a location..."/>
     </div>
   )
 };
