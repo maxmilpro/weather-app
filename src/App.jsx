@@ -9,6 +9,7 @@ const App = () => {
   const [forecast, setForecast] = useState([]);
   const [location, setLocation] = useState('San Francisco, CA');
   const [searchText, setSearchText] = useState('');
+  const [predictions, setPredictions] = useState([]);
 
   useEffect(() => {
     const fetchForecast = () => {
@@ -23,19 +24,25 @@ const App = () => {
   useEffect(() => {
     const fetchLocations = () => {
       axios.get(`/locations/${searchText}`)
-        .then(result => console.log(result.data))
+        .then(result => setPredictions(result.data.predictions))
         .catch(err => console.log(err));
     }
 
     if (searchText.length > 0) {
       fetchLocations();
-    }
+    };
   }, [searchText]);
+
+  const clickHandler = (event) => {
+    setLocation(event.target.textContent);
+    setPredictions([]);
+  }
 
   return (
     <div>
       <GlobalStyle/>
       <SearchBar setSearchText={setSearchText}/>
+      {predictions.map((prediction, i) => <div key={i} onClick={clickHandler}>{prediction.description}</div>)}
       <Title>5-Day Forecast</Title>
       <Location>{location}</Location>
       <FiveDayForecast forecast={forecast}/>
