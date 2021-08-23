@@ -20,6 +20,18 @@ const App = () => {
     fetchForecast();
   }, []);
 
+  useEffect(() => {
+    const fetchLocations = () => {
+      axios.get(`/locations/${searchText}`)
+        .then(result => console.log(result.data))
+        .catch(err => console.log(err));
+    }
+
+    if (searchText.length > 0) {
+      fetchLocations();
+    }
+  }, [searchText]);
+
   return (
     <div>
       <GlobalStyle/>
