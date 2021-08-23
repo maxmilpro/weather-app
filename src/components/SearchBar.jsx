@@ -7,7 +7,7 @@ const SearchBar = ({ setSearchText }) => {
   };
 
   const debouncedChangeHandler = useMemo(
-    () => debounce(changeHandler, 300)
+    () => debounce(changeHandler, 500)
   , []);
 
   useEffect(() => {
