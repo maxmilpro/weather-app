@@ -36,3 +36,21 @@ const parseTimestamp = (timestamp) => {
   const dateString = new Date(timestamp * 1000).toDateString();
   return dateString.split(/(?<=^\S+)\s/);
 };
+
+module.exports.getLocations = (req, res) => {
+  const input = req.params.text;
+
+  var config = {
+    method: 'get',
+    url: `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&components=country:us&types=(cities)&key=${process.env.GOOGLE_API_KEY}`,
+    headers: { }
+  };
+
+  axios(config)
+  .then(function (response) {
+    res.send(response.data);
+  })
+  .catch(function (error) {
+    res.send(error);
+  });
+};
