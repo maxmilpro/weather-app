@@ -33,9 +33,7 @@ const App = () => {
     }
 
     if (searchText.length > 0) {
-      // commenting to prevent google API request and using sample predictions data
-      // fetchLocations();
-      setPredictions(samplePredictions)
+      fetchLocations();
     };
   }, [searchText]);
 

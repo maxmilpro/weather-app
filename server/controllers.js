@@ -4,16 +4,25 @@ const URL = `https://api.openweathermap.org/data/2.5/onecall`
 
 module.exports.getDailyForecast = (req, res) => {
   const placeId = req.params.placeId;
-  console.log(placeId);
-  const params = {
-    lat: 37.7749,
-    lon: -122.4194,
-    units: 'imperial',
-    exclude: 'minutely,hourly,alerts',
-    appid: process.env.OPEN_WEATHER_KEY
-  }
 
-  getWeatherData(URL, params)
+  var config = {
+    method: 'get',
+    url: `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=geometry&key=${process.env.GOOGLE_API_KEY}`,
+    headers: { }
+  };
+
+  axios(config)
+    .then(function (response) {
+      const { lat, lng } = response.data.result.geometry.location;
+      const params = {
+        lat: lat,
+        lon: lng,
+        units: 'imperial',
+        exclude: 'minutely,hourly,alerts',
+        appid: process.env.OPEN_WEATHER_KEY
+      }
+      return getWeatherData(URL, params)
+    })
     .then(result => res.send(generateFiveDayForecast(result.daily)))
     .catch(err => res.send(err));
 };
