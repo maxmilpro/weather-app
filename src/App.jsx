@@ -4,23 +4,27 @@ import axios from 'axios';
 import SearchBar from './components/SearchBar.jsx';
 import FiveDayForecast from './components/FiveDayForecast.jsx';
 import { GlobalStyle, Title, Location } from './styles/StyledApp.jsx';
+import { samplePredictions } from '../tests/sampleData.js';
 
 const App = () => {
   const [forecast, setForecast] = useState([]);
-  const [location, setLocation] = useState('San Francisco, CA');
+  const [location, setLocation] = useState('San Francisco, CA, USA');
+  const [id, setId] = useState('ChIJIQBpAG2ahYAR_6128GcTUEo');
   const [searchText, setSearchText] = useState('');
   const [predictions, setPredictions] = useState([]);
 
+  // retrieve five-day forecasst data on initial render
   useEffect(() => {
     const fetchForecast = () => {
-      axios.get('/dailyForecast')
+      axios.get(`/dailyForecast/${id}`)
         .then(result => setForecast(result.data))
         .catch(err => console.log(err));
     }
 
     fetchForecast();
-  }, []);
+  }, [location, id]);
 
+  // retrieve and set predictions based on searchText
   useEffect(() => {
     const fetchLocations = () => {
       axios.get(`/locations/${searchText}`)
@@ -29,12 +33,16 @@ const App = () => {
     }
 
     if (searchText.length > 0) {
-      fetchLocations();
+      // commenting to prevent google API request and using sample predictions data
+      // fetchLocations();
+      setPredictions(samplePredictions)
     };
   }, [searchText]);
 
   const clickHandler = (event) => {
+    const placeId = event.target.getAttribute("place-id");
     setLocation(event.target.textContent);
+    setId(placeId);
     setPredictions([]);
   }
 
@@ -42,7 +50,7 @@ const App = () => {
     <div>
       <GlobalStyle/>
       <SearchBar setSearchText={setSearchText}/>
-      {predictions.map((prediction, i) => <div key={i} onClick={clickHandler}>{prediction.description}</div>)}
+      {predictions.map((prediction, i) => <div key={i} place-id={prediction.place_id} onClick={clickHandler}>{prediction.description}</div>)}
       <Title>5-Day Forecast</Title>
       <Location>{location}</Location>
       <FiveDayForecast forecast={forecast}/>
