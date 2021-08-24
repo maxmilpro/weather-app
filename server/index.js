@@ -6,7 +6,7 @@ const { getDailyForecast, getLocations } = require('./controllers.js');
 
 app.use(express.static('public'));
 
-app.get('/dailyForecast', getDailyForecast);
+app.get('/dailyForecast/:placeId', getDailyForecast);
 app.get('/locations/:text', getLocations);
 
 app.listen(port, () => {
