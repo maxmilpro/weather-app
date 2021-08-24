@@ -3,6 +3,8 @@ const { getWeatherData } = require('./apiFetcher.js');
 const URL = `https://api.openweathermap.org/data/2.5/onecall`
 
 module.exports.getDailyForecast = (req, res) => {
+  const placeId = req.params.placeId;
+  console.log(placeId);
   const params = {
     lat: 37.7749,
     lon: -122.4194,
