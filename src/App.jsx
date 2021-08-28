@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import SearchBar from './components/SearchBar.jsx';
+import Header from './components/Header.jsx';
 import FiveDayForecast from './components/FiveDayForecast.jsx';
 import { GlobalStyle, Title, Location } from './styles/StyledApp.jsx';
-import { samplePredictions } from '../tests/sampleData.js';
+import { samplePredictions, sampleForecast } from '../tests/sampleData.js';
 
 const App = () => {
   const [forecast, setForecast] = useState([]);
@@ -21,7 +21,8 @@ const App = () => {
         .catch(err => console.log(err));
     }
 
-    fetchForecast();
+    // fetchForecast();
+    setForecast(sampleForecast);
   }, [location, id]);
 
   // retrieve and set predictions based on searchText
@@ -33,7 +34,8 @@ const App = () => {
     }
 
     if (searchText.length > 0) {
-      fetchLocations();
+      // fetchLocations();
+      setPredictions(samplePredictions);
     };
   }, [searchText]);
 
@@ -47,7 +49,7 @@ const App = () => {
   return (
     <div>
       <GlobalStyle/>
-      <SearchBar setSearchText={setSearchText}/>
+      <Header setSearchText={setSearchText}/>
       {predictions.map((prediction, i) => <div key={i} place-id={prediction.place_id} onClick={clickHandler}>{prediction.description}</div>)}
       <Title>5-Day Forecast</Title>
       <Location>{location}</Location>
